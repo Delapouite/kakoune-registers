@@ -14,6 +14,10 @@ Add `registers.kak` to your autoload dir: `~/.config/kak/autoload/`.
 
 Run the `list-registers` or `info-registers` commands.
 
+## See also
+
+- [kakoune-buffers](https://github.com/Delapouite/kakoune-buffers)
+
 ## Licence
 
 MIT
