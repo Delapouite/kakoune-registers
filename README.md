@@ -17,6 +17,7 @@ Run the `list-registers` or `info-registers` commands.
 ## See also
 
 - [kakoune-buffers](https://github.com/Delapouite/kakoune-buffers)
+- [:doc registers](https://github.com/mawww/kakoune/blob/master/doc/manpages/registers.asciidoc)
 
 ## Licence
 
