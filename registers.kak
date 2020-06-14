@@ -19,11 +19,12 @@ def list-registers -docstring 'populate the *registers* buffer with the content 
   }
 }
 
-# beware, it wipes the content of reg x
 def info-registers -docstring 'populate an info box with the content of registers' %{
   list-registers
-  exec -save-regs \%| '%<a-s>|cut<space>-c-30<ret>%"xyga'
-  info -title registers -- %reg{x}
-  set-register x ''
+  eval -save-regs \%x %{
+      try %{ exec -save-regs '%<a-s>s^.{30}\K[^\n]*<ret>"_c…<esc>' }
+      exec '%"xyga'
+      info -title registers -- %reg{x}
+  }
 }
 
