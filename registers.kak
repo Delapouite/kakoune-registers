@@ -5,7 +5,9 @@ def list-registers -docstring 'populate the *registers* buffer with the content 
     echo 'exec \%d'
 
     # paste the content of each register on a separate line
-    for reg in {'%','.','#','"','@','/','^','|',{a..z},{0..9}}; do
+    for reg in '%' '.' '#' '"' '@' '/' '^' '|' \
+               a b c d e f g h i j k l m n o p q r s t u v w x y z \
+               0 1 2 3 4 5 6 8 9; do
       echo "exec 'i${reg}<space><esc>\"${reg}pGj<a-j>o<esc>'"
     done
 
