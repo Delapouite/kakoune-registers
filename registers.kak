@@ -27,10 +27,8 @@ def list-registers -docstring 'populate the *registers* buffer with the content 
 
 def info-registers -docstring 'populate an info box with the content of registers' %{
   list-registers
-  eval -save-regs x %{
-      try %{ exec -save-regs '%<a-s>s^.{30}\K[^\n]*<ret>"_c…<esc>' }
-      exec '%"xyga'
-      info -title registers -- %reg{x}
-  }
+  try %{ exec '%<a-s>s^.{30}\K[^\n]*<ret>c…<esc>' }
+  exec '%'
+  info -title registers -- %val{selection}
 }
 
