@@ -14,7 +14,7 @@ def list-registers -docstring 'populate the *registers* buffer with the content 
     for reg in '"' '@' '/' '^' '|' \
                a b c d e f g h i j k l m n o p q r s t u v w x y z \
                0 1 2 3 4 5 6 8 9; do
-      echo "exec 'i${reg}<space><esc>\"${reg}pGj<a-J>do<esc>'"
+      echo "exec 'i${reg}<esc>\"${reg}pGj<a-j>o<esc>'"
     done
 
     # hide empty registers (lines with less than 4 chars)
