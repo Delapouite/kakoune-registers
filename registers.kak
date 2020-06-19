@@ -1,12 +1,27 @@
 def list-registers -docstring 'populate the *registers* buffer with the content of registers' %{
+  # store special registers in z, save original value in option
+  declare-option -hidden str-list z_reg %reg{z}
+  set-register z "%% %reg{percent}" ". %reg{dot}" "# %reg{hash}"
   edit! -scratch *registers*
   evaluate-commands %sh{
     # empty scratch buffer
     echo 'exec \%d'
 
     # paste the content of each register on a separate line
-    for reg in {'%','.','#','"','@','/','^','|',{a..z},{0..9}}; do
-      echo "exec 'i${reg}<space><esc>\"${reg}pGj<a-j>o<esc>'"
+    # first the special registers, paste then add newlines
+    echo "exec '\"z<a-p>a<ret><esc>_'"
+    # join multiline register contents
+    echo "try %{ exec 's\\\\n<ret>r<space>' }"
+    echo "exec 'geo<esc>'"
+
+    # restore original z register
+    echo 'set-register z %opt{z_reg}'
+
+    # paste regular registers, also join multiline contents
+    for reg in '"' '@' '/' '^' '|' \
+               a b c d e f g h i j k l m n o p q r s t u v w x y z \
+               0 1 2 3 4 5 6 8 9; do
+      echo "exec 'i${reg}<esc>\"${reg}pGj<a-j>o<esc>'"
     done
 
     # hide empty registers (lines with less than 4 chars)
@@ -17,11 +32,10 @@ def list-registers -docstring 'populate the *registers* buffer with the content 
   }
 }
 
-# beware, it wipes the content of reg x
 def info-registers -docstring 'populate an info box with the content of registers' %{
   list-registers
-  exec -save-regs \%| '%<a-s>|cut<space>-c-30<ret>%"xyga'
-  info -title registers -- %reg{x}
-  set-register x ''
+  try %{ exec '%<a-s>s^.{30}\K[^\n]*<ret>c…<esc>' }
+  exec '%'
+  info -title registers -- %val{selection}
 }
 
