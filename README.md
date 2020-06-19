@@ -24,6 +24,7 @@ Run the `list-registers` or `info-registers` commands.
 
 - [kakoune-buffers](https://github.com/Delapouite/kakoune-buffers)
 - [kakoune-marks](https://github.com/Delapouite/kakoune-marks)
+- [kakboard](https://github.com/lePerdu/kakboard)
 - [:doc registers](https://github.com/mawww/kakoune/blob/master/doc/pages/registers.asciidoc)
 
 ## Licence
