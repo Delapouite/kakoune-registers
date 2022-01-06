@@ -36,6 +36,8 @@ define-command info-registers -docstring 'populate an info box with the content 
   list-registers
   try %{ execute-keys '%<a-s>s^.{30}\K[^\n]*<ret>c…<esc>' }
   execute-keys '%'
-  info -title registers -- %val{selection}
+  declare-option -hidden str-list reg_info %val{selection}
+  delete-buffer
+  info -title registers -- %opt{reg_info}
 }
 
